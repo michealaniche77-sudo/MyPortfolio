@@ -314,11 +314,11 @@
         border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
       footer a {
-        position: absolute;
-        top: 1;
-        right: 1;
-        padding: 1rem;
-        margin-left: 400px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.5rem;
+  margin-left: 0;
         color: #00b4d8;
         transition: all 0.3s ease;
       }
@@ -400,9 +400,7 @@
         h2 {
           font-size: 2rem;
         }
-        footer a {
-          margin-left: 40px;
-        }
+        
       }
 
       @media (max-width: 480px) {
@@ -419,12 +417,10 @@
         .carousel-btn.next {
           right: 5px;
         }
-        footer a {
-          margin-left: 12px;
-        }
+        
       }
 @media (max-width: 320px){
-    .menu {
+  /*.menu {
           padding: 0.8rem 0.8rem;          
           max-width: 100%;
           margin: 0;
@@ -440,10 +436,37 @@
           min-width: 247px;
 								overflow: hidden;
 
-         }
-html, body {
-  overflow-x: hidden;
-}
+         }*/
+  .menu {
+    padding: 0.8rem;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  #container {
+    padding: 0.8rem;
+    max-width: 100%;
+    margin: 100px 0 0;
+  }
+
+  #about p {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .carousel-track {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .card {
+    min-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  html, body {
+    overflow-x: hidden;
+  }
 }
 
     </style>
