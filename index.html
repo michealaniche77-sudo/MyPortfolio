@@ -1,320 +1,708 @@
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio Website | use poppins</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Portfolio Website</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
 
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #f1f1f1;
-            line-height: 1.6;
-        }
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #f1f1f1;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
 
-        nav {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+      nav {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
 
+      .menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #00b4d8, #90e0ef);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+      .logo a {
+        text-decoration: none;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      /* Hide checkbox */
+      #check {
+        display: none;
+      }
+
+      /* Navigation links */
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2.5rem;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: #f1f1f1;
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+      }
+
+      nav ul li a:hover {
+        background: rgba(0, 180, 216, 0.2);
+        color: #90e0ef;
+      }
+
+      /* Hamburger and close buttons - hidden by default */
+      .btn {
+        display: none;
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: #90e0ef;
+        transition: transform 0.3s ease;
+      }
+
+      .btn:hover {
+        transform: scale(1.1);
+      }
+
+      /* Main content sections */
+      #container {
+        max-width: 1200px;
+        margin: 100px auto 0;
+        padding: 2rem;
+      }
+
+      section {
+        margin-bottom: 6rem;
+        scroll-margin-top: 100px;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(45deg, #00b4d8, #90e0ef);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        display: inline-block;
+      }
+
+      #about p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        line-height: 1.8;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 15px;
+        border-left: 4px solid #00b4d8;
+      }
+
+      /* Carousel Styles */
+      .carousel-container {
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 20px;
+        padding: 2rem 0;
+      }
+
+      .carousel-track {
+        display: flex;
+        transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        gap: 30px;
+        padding: 20px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        overflow: hidden;
+        transition:
+          transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.6s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex: 0 0 calc(33.333% - 20px);
+        min-width: 300px;
+        cursor: pointer;
+        position: relative;
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+      .card .card-desc {
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .card.active {
+        transform: scale(1.1);
+        opacity: 1;
+        z-index: 2;
+        box-shadow: 0 25px 50px rgba(0, 180, 216, 0.3);
+        border-color: rgba(0, 180, 216, 0.5);
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+      }
+
+      .card.active:hover {
+        transform: scale(1.15);
+        box-shadow: 0 30px 60px rgba(0, 180, 216, 0.4);
+      }
+
+      .card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.6s ease;
+      }
+
+      .card:hover img {
+        transform: scale(1.05);
+      }
+
+      .card h3 {
+        padding: 1.5rem;
+        text-align: center;
+        font-size: 1.3rem;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      /* Carousel Controls */
+      .carousel-nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .carousel-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .carousel-dot::after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease;
+      }
+
+      .carousel-dot:hover::after {
+        border-color: rgba(0, 180, 216, 0.5);
+      }
+
+      .carousel-dot.active {
+        background: #00b4d8;
+        transform: scale(1.3);
+      }
+
+      .carousel-dot.active::after {
+        border-color: rgba(0, 180, 216, 0.8);
+      }
+
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        backdrop-filter: blur(5px);
+      }
+
+      .carousel-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 10px 20px rgba(0, 180, 216, 0.4);
+      }
+
+      .carousel-btn.prev {
+        left: 10px;
+      }
+
+      .carousel-btn.next {
+        right: 10px;
+      }
+
+      #contact button {
+        background: linear-gradient(45deg, #00b4d8, #90e0ef);
+        color: #1a1a2e;
+        border: none;
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      #contact button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
+      }
+
+      footer {
+        position: relative;
+        text-align: center;
+        padding: 3rem 2rem;
+        background: rgba(0, 0, 0, 0.3);
+        margin-top: 4rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      footer a {
+        position: absolute;
+        top: 1;
+        right: 1;
+        padding: 1rem;
+        margin-left: 400px;
+        color: #00b4d8;
+        transition: all 0.3s ease;
+      }
+      footer a:hover {
+        transform: translateY(-5px);
+      }
+
+      footer hr {
+        width: 90%;
+        margin: 1rem auto;
+        border: none;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 1024px) {
+        .card {
+          flex: 0 0 calc(50% - 20px);
+        }
+      }
+
+      @media (max-width: 768px) {
         .menu {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+          padding: 1rem;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #00b4d8, #90e0ef);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .btn.bars {
+          display: block;
         }
 
-        /* Hide checkbox */
-        #check {
-            display: none;
-        }
-
-        /* Navigation links */
         nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 100%;
+          height: 100vh;
+          background: rgba(22, 33, 62, 0.98);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          transition: right 0.5s ease;
+          z-index: 1001;
         }
 
-        nav ul li a {
-            text-decoration: none;
-            color: #f1f1f1;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+        nav ul label.cancel {
+          display: block;
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+          font-size: 2rem;
         }
 
-        nav ul li a:hover {
-            background: rgba(0, 180, 216, 0.2);
-            color: #90e0ef;
+        #check:checked ~ ul {
+          right: 0;
         }
 
-        /* Hamburger and close buttons - hidden by default */
-        .btn {
-            display: none;
-            cursor: pointer;
-            font-size: 1.8rem;
-            color: #90e0ef;
-            transition: transform 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Main content sections */
         #container {
-            max-width: 1200px;
-            margin: 100px auto 0;
-            padding: 2rem;
+          margin-top: 80px;
+          padding: 1rem;
         }
 
-        section {
-            margin-bottom: 6rem;
-            scroll-margin-top: 100px;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, #00b4d8, #90e0ef);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-
-        #about p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            line-height: 1.8;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 4px solid #00b4d8;
-        }
-
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .carousel-container {
+          padding: 1rem 0;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+          flex: 0 0 calc(100% - 20px);
+          min-width: 280px;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+        .carousel-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 1.2rem;
         }
 
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        h2 {
+          font-size: 2rem;
+        }
+        footer a {
+          margin-left: 40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .carousel-btn {
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
         }
 
-        .card h3 {
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 1.3rem;
+        .carousel-btn.prev {
+          left: 5px;
         }
 
-        #contact button {
-            background: linear-gradient(45deg, #00b4d8, #90e0ef);
-            color: #1a1a2e;
-            border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .carousel-btn.next {
+          right: 5px;
         }
-
-        #contact button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
+        footer a {
+          margin-left: 10px;
         }
-
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            margin-top: 4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        footer hr {
-            width: 50%;
-            margin: 1rem auto;
-            border: none;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Responsive design for mobile */
-        @media (max-width: 768px) {
-            .menu {
-                padding: 1rem;
-            }
-
-            /* Show hamburger button */
-            .btn.bars {
-                display: block;
-            }
-
-            /* Navigation menu for mobile */
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 100%;
-                height: 100vh;
-                background: rgba(22, 33, 62, 0.98);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: right 0.5s ease;
-                z-index: 1001;
-            }
-
-            /* Show close button inside the menu */
-            nav ul label.cancel {
-                display: block;
-                position: absolute;
-                top: 2rem;
-                right: 2rem;
-                font-size: 2rem;
-            }
-
-            /* When checkbox is checked, show the menu */
-            #check:checked ~ ul {
-                right: 0;
-            }
-
-            #container {
-                margin-top: 80px;
-                padding: 1rem;
-            }
-
-            .projects {
-                grid-template-columns: 1fr;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav>
-        <div class="menu">
-            <!-- This checkbox controls the menu state -->
-            <input type="checkbox" id="check" />
-            <h1 class="logo">My Portfolio</h1>
-            
-            <ul>
-                <!-- Close button (X mark) -->
-                <label class="btn cancel" for="check">
-                    <i class="fa-solid fa-xmark"></i>
-                </label>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            
-            <!-- Hamburger menu button -->
-            <label class="btn bars" for="check">
-                <i class="fa-solid fa-bars"></i>
-            </label>
-        </div>
+      <div class="menu">
+        <input type="checkbox" id="check" />
+        <h1 class="logo"><a href="#">My Portfolio</a></h1>
+
+        <ul>
+          <label class="btn cancel" for="check">
+            <i class="fa-solid fa-xmark"></i>
+          </label>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <label class="btn bars" for="check">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+      </div>
     </nav>
 
     <section id="container">
-        <section id="about">
-            <h2>About Me</h2>
-            <p>I am a Frontend Developer and Designer passionate about creating beautiful, responsive, and user-friendly web experiences. With expertise in modern web technologies and a keen eye for design, I strive to build interfaces that are both functional and aesthetically pleasing.</p>
-        </section>
+      <section id="about" data-aos="fade-left" data-aos-delay="400">
+        <h2>About Me</h2>
+        <p>
+          I am Micheal Eze Aniche and I am a Frontend Developer and Designer
+          passionate about creating beautiful, responsive, and user-friendly web
+          experiences. With expertise in modern web technologies and a keen eye
+          for design, I strive to build interfaces that are both functional and
+          aesthetically pleasing.
+        </p>
+      </section>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="projects">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1558655146-364adaf1fcc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Calculator App" />
-                    <h3>Calculator App</h3>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Form Validator" />
-                    <h3>Form Validator</h3>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Portfolio Site" />
-                    <h3>Portfolio Site</h3>
-                </div>
+      <section id="projects" data-aos="fade-up" data-aos-delay="400">
+        <h2>My Projects</h2>
+        <div class="carousel-container" id="carouselContainer">
+          <button class="carousel-btn prev" id="prevBtn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <button class="carousel-btn next" id="nextBtn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <div class="carousel-track" id="carouselTrack">
+            <div class="card active" data-index="0">
+              <img
+                src="https://images.unsplash.com/photo-1558655146-364adaf1fcc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="Calculator App"
+              />
+              <h3>Calculator App</h3>
+              <p class="card-desc">
+                A modern calculator with advanced functions
+              </p>
             </div>
-        </section>
+            <div class="card" data-index="1">
+              <img
+                src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="Form Validator"
+              />
+              <h3>Form Validator</h3>
+              <p class="card-desc">
+                Real-time form validation with custom rules
+              </p>
+            </div>
+            <div class="card" data-index="2">
+              <img
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="Portfolio Site"
+              />
+              <h3>Portfolio Site</h3>
+              <p class="card-desc">Responsive portfolio with dark theme</p>
+            </div>
+            <div class="card" data-index="3">
+              <img
+                src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="Weather App"
+              />
+              <h3>Weather App</h3>
+              <p class="card-desc">Real-time weather forecasts globally</p>
+            </div>
+            <div class="card" data-index="4">
+              <img
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="Task Manager"
+              />
+              <h3>Task Manager</h3>
+              <p class="card-desc">Productivity app with drag & drop</p>
+            </div>
+            <div class="card" data-index="5">
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="E-commerce UI"
+              />
+              <h3>E-commerce UI</h3>
+              <p class="card-desc">Modern online shopping interface</p>
+            </div>
+          </div>
 
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <button onclick="showMsg()">Say Hello</button>
-        </section>
+          <div class="carousel-nav" id="carouselNav"></div>
+        </div>
+      </section>
+
+      <section id="contact" data-aos="fade-left" data-aos-delay="400">
+        <h2>Contact Me</h2>
+        <button onclick="showMsg()">Say Hello</button>
+      </section>
     </section>
 
-    <footer>
-        Micheal Eze Aniche
-        <br />
-        <hr />
-        <br />
-        &copy; 2026 My portfolio | All right reserved
+    <footer data-aos="fade-up" data-aos-delay="400">
+      Micheal Eze Aniche
+      <br />
+      <hr />
+      <br />
+      &copy; 2026 My portfolio | All right reserved
+      <a href="#"><i class="fa-solid fa-circle-arrow-up"></i></a>
     </footer>
 
     <script>
-        function showMsg() {
-            alert("Thanks for visiting my portfolio! Feel free to reach out to collaborate on exciting projects!");
+      AOS.init();
+      // Portfolio message function
+      function showMsg() {
+        alert(
+          "Thanks for visiting my portfolio! Feel free to reach out to collaborate on exciting projects!",
+        );
+      }
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll("nav ul li a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          document.getElementById("check").checked = false;
+        });
+      });
+
+      // Carousel functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const carouselTrack = document.getElementById("carouselTrack");
+        const cards = document.querySelectorAll(".card");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const carouselNav = document.getElementById("carouselNav");
+        const carouselContainer = document.getElementById("carouselContainer");
+
+        let currentIndex = 0;
+        let cardWidth = cards[0].offsetWidth + 30; // card width + gap
+        let autoPlayInterval;
+        let isHovering = false;
+        const totalCards = cards.length;
+
+        // Create navigation dots
+        function createDots() {
+          for (let i = 0; i < totalCards; i++) {
+            const dot = document.createElement("button");
+            dot.classList.add("carousel-dot");
+            dot.setAttribute("data-index", i);
+            if (i === 0) dot.classList.add("active");
+
+            dot.addEventListener("click", function () {
+              const index = parseInt(this.getAttribute("data-index"));
+              goToSlide(index);
+            });
+
+            carouselNav.appendChild(dot);
+          }
         }
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('nav ul li a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('check').checked = false;
-            });
+        // Update active dot
+        function updateDots() {
+          const dots = document.querySelectorAll(".carousel-dot");
+          dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+              dot.classList.add("active");
+            } else {
+              dot.classList.remove("active");
+            }
+          });
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+          currentIndex = index;
+          updateCarousel();
+          updateDots();
+          resetAutoPlay();
+        }
+
+        // Update carousel position
+        function updateCarousel() {
+          // Update active card
+          cards.forEach((card, index) => {
+            card.classList.remove("active");
+            if (index === currentIndex) {
+              card.classList.add("active");
+            }
+          });
+
+          // Calculate position for centered view
+          const offset = -currentIndex * cardWidth;
+          carouselTrack.style.transform = `translateX(${offset}px)`;
+        }
+
+        // Next slide
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % totalCards;
+          updateCarousel();
+          updateDots();
+        }
+
+        // Previous slide
+        function prevSlide() {
+          currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+          updateCarousel();
+          updateDots();
+        }
+
+        // Auto-play functionality
+        function startAutoPlay() {
+          if (!isHovering) {
+            autoPlayInterval = setInterval(nextSlide, 3000); // Change every 3 seconds
+          }
+        }
+
+        function stopAutoPlay() {
+          clearInterval(autoPlayInterval);
+        }
+
+        function resetAutoPlay() {
+          stopAutoPlay();
+          startAutoPlay();
+        }
+
+        // Event listeners
+        prevBtn.addEventListener("click", function () {
+          prevSlide();
+          resetAutoPlay();
         });
+
+        nextBtn.addEventListener("click", function () {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        // Pause on hover
+        carouselContainer.addEventListener("mouseenter", function () {
+          isHovering = true;
+          stopAutoPlay();
+        });
+
+        carouselContainer.addEventListener("mouseleave", function () {
+          isHovering = false;
+          startAutoPlay();
+        });
+
+        // Handle window resize
+        function handleResize() {
+          cardWidth = cards[0].offsetWidth + 30;
+          updateCarousel();
+        }
+
+        // Initialize carousel
+        createDots();
+        updateCarousel();
+        startAutoPlay();
+
+        // Event listeners
+        window.addEventListener("resize", handleResize);
+
+        // Keyboard navigation
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") {
+            prevSlide();
+            resetAutoPlay();
+          } else if (e.key === "ArrowRight") {
+            nextSlide();
+            resetAutoPlay();
+          }
+        });
+      });
     </script>
-</body>
+  </body>
 </html>
