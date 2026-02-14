@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio · smooth scroll · no horizontal scroll</title>
-    <!-- Font Awesome 6 (free) – using latest to avoid version issues -->
+    <title>Portfolio Website</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -16,7 +15,6 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-      /* RESET & GLOBAL */
       * {
         margin: 0;
         padding: 0;
@@ -24,19 +22,11 @@
         font-family: "Poppins", sans-serif;
       }
 
-      /* ————— HORIZONTAL SCROLLBAR FIX ————— */
-      html {
-        overflow-x: hidden;
-        scroll-behavior: smooth;   /* smooth like Bootstrap */
-        width: 100%;
-      }
       body {
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         color: #f1f1f1;
         line-height: 1.6;
         overflow-x: hidden;
-        width: 100%;
-        position: relative;
       }
 
       nav {
@@ -56,7 +46,6 @@
         padding: 1.5rem 2rem;
         max-width: 1200px;
         margin: 0 auto;
-        width: 100%;
       }
 
       .logo {
@@ -118,8 +107,6 @@
         max-width: 1200px;
         margin: 100px auto 0;
         padding: 2rem;
-        width: 100%;
-        overflow-x: hidden; /* extra safety */
       }
 
       section {
@@ -145,18 +132,16 @@
         padding: 2rem;
         border-radius: 15px;
         border-left: 4px solid #00b4d8;
-        width: 100%;
       }
 
-      /* Carousel Styles */
+      /* Carousel Styles - FIXED ZOOM ISSUE */
       .carousel-container {
         position: relative;
         max-width: 1000px;
         margin: 0 auto;
-        overflow: hidden;   /* ← prevents horizontal scroll */
+        overflow: hidden;
         border-radius: 20px;
         padding: 2rem 0;
-        width: 100%;
       }
 
       .carousel-track {
@@ -164,23 +149,21 @@
         transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         gap: 30px;
         padding: 20px;
-        width: max-content;  /* ensures track expands but container hides overflow */
       }
 
       .card {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 20px;
         overflow: hidden;
-        transition:
-          transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-          box-shadow 0.6s ease;
+        transition: box-shadow 0.4s ease, border-color 0.3s ease, transform 0.3s ease;
         border: 1px solid rgba(255, 255, 255, 0.1);
         flex: 0 0 calc(33.333% - 20px);
         min-width: 300px;
         cursor: pointer;
         position: relative;
-        transform: scale(0.9);
-        opacity: 0.7;
+        transform: scale(1);
+        opacity: 0.8;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       }
       .card .card-desc {
         padding: 2rem;
@@ -188,21 +171,24 @@
       }
 
       .card.active {
-        transform: scale(1.1);
+        transform: scale(1);
         opacity: 1;
         z-index: 2;
-        box-shadow: 0 25px 50px rgba(0, 180, 216, 0.3);
-        border-color: rgba(0, 180, 216, 0.5);
+        box-shadow: 0 20px 30px rgba(0, 180, 216, 0.35);
+        border-color: #00b4d8;
+        background: rgba(255, 255, 255, 0.08);
       }
 
       .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 30px rgba(0, 180, 216, 0.25);
+        border-color: rgba(0, 180, 216, 0.4);
       }
 
       .card.active:hover {
-        transform: scale(1.15);
-        box-shadow: 0 30px 60px rgba(0, 180, 216, 0.4);
+        transform: translateY(-4px);
+        box-shadow: 0 25px 40px rgba(0, 180, 216, 0.45);
+        border-color: #00b4d8;
       }
 
       .card img {
@@ -210,11 +196,11 @@
         height: 250px;
         object-fit: cover;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.6s ease;
+        transition: transform 0.5s ease;
       }
 
       .card:hover img {
-        transform: scale(1.05);
+        transform: scale(1.03);
       }
 
       .card h3 {
@@ -330,13 +316,13 @@
         border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
       footer a {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 0.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.5rem;
+  margin-left: 0;
         color: #00b4d8;
         transition: all 0.3s ease;
-        font-size: 2rem;      /* slightly bigger arrow */
       }
       footer a:hover {
         transform: translateY(-5px);
@@ -379,8 +365,6 @@
           align-items: center;
           transition: right 0.5s ease;
           z-index: 1001;
-          margin: 0;
-          padding: 0;
         }
 
         nav ul label.cancel {
@@ -418,6 +402,7 @@
         h2 {
           font-size: 2rem;
         }
+
       }
 
       @media (max-width: 480px) {
@@ -434,53 +419,58 @@
         .carousel-btn.next {
           right: 5px;
         }
+
       }
-
-      /* 320px and below – refined to avoid any overflow */
-      @media (max-width: 320px){
-        .menu {
-          padding: 0.8rem;
+@media (max-width: 320px){
+  /*.menu {
+          padding: 0.8rem 0.8rem;          
           max-width: 100%;
+          margin: 0;
         }
-
-        #container {
-          padding: 0.8rem;
+         #container {
+          padding: 1rem;
           max-width: 100%;
-          margin: 100px 0 0;
-        }
+        overflow: hidden;
+        margin: 100px 0 0;
 
-        #about p {
-          width: 100%;
-          max-width: 100%;
-          padding: 1.5rem;
         }
+         .card{
+          min-width: 247px;
+                                                                overflow: hidden;
 
-        .carousel-track {
-          padding: 10px;
-          gap: 15px;
-        }
+         }*/
+  .menu {
+    padding: 0.8rem;
+    max-width: 100%;
+    margin: 0;
+  }
 
-        .card {
-          min-width: 260px;   /* ensures no gap overflow */
-          flex: 0 0 260px;
-        }
+  #container {
+    padding: 0.8rem;
+    max-width: 100%;
+    margin: 100px 0 0;
+  }
 
-        /* force container to hide any stray overflow */
-        .carousel-container {
-          padding: 1rem 0;
-          width: 100%;
-        }
+  #about p {
+    width: 100%;
+    max-width: 100%;
+  }
 
-        html, body {
-          overflow-x: hidden;
-        }
+  .carousel-track {
+    padding: 10px;
+    gap: 15px;
+  }
 
-        footer a {
-          font-size: 1.8rem;
-          top: 5px;
-          right: 5px;
-        }
-      }
+  .card {
+    min-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
     </style>
   </head>
   <body>
@@ -598,8 +588,7 @@
       <hr />
       <br />
       &copy; 2026 My portfolio | All right reserved
-      <!-- back to top with smooth scroll (now global) -->
-      <a href="#" aria-label="Back to top"><i class="fa-solid fa-circle-arrow-up"></i></a>
+      <a href="#"><i class="fa-solid fa-circle-arrow-up"></i></a>
     </footer>
 
     <script>
@@ -739,7 +728,6 @@
 
         // Handle window resize
         function handleResize() {
-          // recalc card width (including gap)
           cardWidth = cards[0].offsetWidth + 30;
           updateCarousel();
         }
